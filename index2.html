@@ -1,0 +1,1885 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pallet Gỗ Hòa Phát - Máy Bắn Đinh & Thiết Bị Công Nghiệp</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+
+      /* Màu chủ đạo */
+      .bg-brand-red {
+        background-color: #ad0016;
+      }
+      .text-brand-red {
+        color: #ad0016;
+      }
+      .border-brand-red {
+        border-color: #ad0016;
+      }
+      .hover-brand-red:hover {
+        background-color: #8a0012;
+      }
+
+      /* --- Animations & Effects --- */
+      .hover-scale {
+        transition: transform 0.3s ease;
+      }
+      .hover-scale:hover {
+        transform: translateY(-5px);
+      }
+
+      /* Category Filter Styles */
+      .filter-btn {
+        transition: all 0.3s ease;
+        position: relative;
+        white-space: nowrap;
+      }
+      .filter-btn.active {
+        background-color: #ad0016;
+        color: white;
+        border-color: #ad0016;
+        box-shadow: 0 4px 6px -1px rgba(173, 0, 22, 0.4);
+      }
+      .filter-btn:not(.active):hover {
+        background-color: #fee2e2;
+        color: #ad0016;
+      }
+      .product-item {
+        transition:
+          opacity 0.4s ease-in-out,
+          transform 0.4s ease;
+      }
+      .product-item.hidden-item {
+        display: none;
+      }
+      .product-item.show-item {
+        display: block;
+        animation: fadeIn 0.5s forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Carousel Styles */
+      .carousel-item {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.7s ease-in-out;
+        z-index: 0;
+      }
+      .carousel-item.active {
+        opacity: 1;
+        z-index: 10;
+      }
+      .carousel-content {
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.7s ease-out 0.3s;
+      }
+      .carousel-item.active .carousel-content {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* Floating Contact Button */
+      .floating-contact {
+        position: fixed;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .floating-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .floating-item:hover {
+        transform: translateX(-5px);
+      }
+      .floating-text {
+        background: white;
+        color: #333;
+        padding: 6px 12px;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-right: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(10px);
+        transition: all 0.3s ease-in-out;
+        position: absolute;
+        right: 50px;
+      }
+      .floating-item:hover .floating-text {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+      .icon-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        z-index: 2;
+        overflow: hidden; /* Để ảnh Zalo không bị tràn */
+      }
+      .pulse-ring::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: inherit;
+        border-radius: 50%;
+        z-index: -1;
+        animation: pulse-animation 2s infinite;
+      }
+      @keyframes pulse-animation {
+        0% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        100% {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+
+      /* Product Gallery & Zoom Effect */
+      .thumb-img {
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.2s;
+        opacity: 0.7;
+        object-fit: contain;
+        background-color: #fff;
+      }
+      .thumb-img:hover,
+      .thumb-img.active {
+        border-color: #ad0016;
+        opacity: 1;
+      }
+
+      .zoom-container {
+        overflow: hidden;
+        cursor: zoom-in;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .zoom-img {
+        transition: transform 0.1s ease-out;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      /* Navbar Links */
+      .nav-link {
+        position: relative;
+        color: #222;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 8px 0;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #ad0016;
+        transition: width 0.3s;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .nav-link:hover {
+        color: #ad0016;
+      }
+
+      /* --- AI Chat UI --- */
+      #ai-chat-window {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 350px;
+        height: 500px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        z-index: 1001;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+      }
+      #ai-chat-window.active {
+        display: flex;
+      }
+      #ai-chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .ai-message {
+        max-width: 85%;
+        padding: 10px 14px;
+        border-radius: 15px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+      .ai-message.user {
+        align-self: flex-end;
+        background-color: #ad0016;
+        color: white;
+        border-bottom-right-radius: 2px;
+      }
+      .ai-message.bot {
+        align-self: flex-start;
+        background-color: #f3f4f6;
+        color: #1f2937;
+        border-bottom-left-radius: 2px;
+      }
+      .typing-dots {
+        display: flex;
+        gap: 4px;
+        padding: 4px 8px;
+      }
+      .typing-dots span {
+        width: 6px;
+        height: 6px;
+        background: #9ca3af;
+        border-radius: 50%;
+        animation: typing 1s infinite ease-in-out;
+      }
+      .typing-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes typing {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+      }
+      #ai-chat-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        background-color: #ad0016;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(173, 0, 22, 0.4);
+        cursor: pointer;
+        z-index: 1002;
+        transition: transform 0.3s;
+      }
+      #ai-chat-toggle:hover {
+        transform: scale(1.1);
+      }
+      @media (max-width: 768px) {
+        #ai-chat-window {
+          width: calc(100% - 40px);
+          bottom: 70px;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 pb-16 md:pb-0">
+    <!-- TOP BAR -->
+    <div
+      class="bg-brand-red text-white py-2 text-xs md:text-sm hidden md:block z-50 relative"
+    >
+      <div class="container mx-auto px-4 flex justify-between items-center">
+        <div class="flex gap-6">
+          <span
+            ><i class="fas fa-phone-square-alt mr-2"></i>Điện thoại:
+            0978.634.092</span
+          >
+        </div>
+        <div class="flex gap-6 text-right">
+          <span
+            ><i class="far fa-envelope mr-2"></i>Email:
+            tienthamtechnical@gmail.com</span
+          >
+          <span
+            ><i class="fas fa-map-marker-alt mr-2"></i>Địa chỉ: Thôn Hộ Vệ, xã
+            Cẩm Giàng, Thành Phố Hải Phòng</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- HEADER & NAVBAR -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-2">
+        <div class="flex justify-between items-center h-20">
+          <!-- Logo Area -->
+          <a href="#" class="flex items-center gap-3 group">
+            <!-- Added Logo Image -->
+            <img
+              src="http://palletgohoaphat.com/logo/2146/logo%20web.png"
+              alt="Logo Pallet Gỗ Hòa Phát"
+              class="h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+            <div class="flex flex-col hidden md:flex">
+              <h1
+                class="font-black text-xl md:text-2xl uppercase text-brand-red leading-none tracking-tighter"
+              >
+                PALLET GỖ HÒA PHÁT
+              </h1>
+              <p
+                class="text-[10px] md:text-xs text-gray-600 font-bold tracking-widest uppercase mt-1 border-t border-gray-300 pt-1"
+              >
+                CÔNG TY TNHH MTV PALLET GỖ HÒA PHÁT
+              </p>
+            </div>
+          </a>
+
+          <!-- Desktop Menu -->
+          <nav
+            class="hidden lg:flex gap-8 font-bold text-gray-800 text-sm uppercase"
+          >
+            <a href="#" class="nav-link">Trang chủ</a>
+            <a href="#ve-chung-toi" class="nav-link">Giới thiệu</a>
+            <a href="#san-pham" class="nav-link">Sản phẩm</a>
+            <a href="#cam-ket" class="nav-link">Dịch vụ & Cam kết</a>
+            <a href="#footer" class="nav-link">Liên hệ</a>
+          </nav>
+
+          <!-- CTA Button -->
+          <div class="hidden md:block">
+            <a
+              href="tel:0978634092"
+              class="bg-brand-red hover-brand-red text-white font-bold py-2 px-6 rounded-full shadow-lg transition flex items-center animate-pulse border-2 border-white ring-2 ring-red-200"
+            >
+              <i class="fas fa-phone-volume mr-2"></i> 0978.634.092
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-btn"
+            class="lg:hidden text-2xl text-brand-red focus:outline-none p-2 border border-gray-200 rounded"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden lg:hidden bg-white border-t border-gray-200 shadow-xl absolute w-full left-0 z-40"
+      >
+        <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+          <a
+            href="#"
+            class="block font-bold text-gray-700 hover:text-brand-red uppercase py-2 border-b border-gray-100"
+            >Trang chủ</a
+          >
+          <a
+            href="#ve-chung-toi"
+            class="block font-bold text-gray-700 hover:text-brand-red uppercase py-2 border-b border-gray-100"
+            >Giới thiệu</a
+          >
+          <a
+            href="#san-pham"
+            class="block font-bold text-gray-700 hover:text-brand-red uppercase py-2 border-b border-gray-100"
+            >Sản phẩm</a
+          >
+          <a
+            href="#cam-ket"
+            class="block font-bold text-gray-700 hover:text-brand-red uppercase py-2 border-b border-gray-100"
+            >Cam kết</a
+          >
+          <a
+            href="#footer"
+            class="block font-bold text-gray-700 hover:text-brand-red uppercase py-2"
+            >Liên hệ</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- CAROUSEL BANNER -->
+    <section
+      class="relative w-full h-[450px] md:h-[550px] overflow-hidden bg-gray-900 group"
+    >
+      <div class="carousel-item active">
+        <img
+          src="https://i.postimg.cc/FshZr1gv/may-ban-dinh-cuon-pallet-cn70-meite-6-1730002062092.webp"
+          alt="Banner 1"
+          class="w-full h-full object-cover opacity-50"
+        />
+        <div
+          class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 carousel-content"
+        >
+          <span
+            class="bg-yellow-500 text-blue-900 px-4 py-1 rounded font-bold uppercase text-sm mb-4"
+            >Đối tác tin cậy ngành gỗ</span
+          >
+          <h2
+            class="text-white text-3xl md:text-6xl font-black uppercase mb-4 drop-shadow-xl tracking-wide"
+          >
+            PALLET GỖ HÒA PHÁT <br />
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-400"
+              >THIẾT BỊ NGÀNH GỖ</span
+            >
+          </h2>
+          <p
+            class="text-gray-100 text-lg md:text-2xl max-w-3xl mb-8 drop-shadow-md"
+          >
+            Mở rộng cung cấp Máy bắn đinh, Lưỡi mài, Máy chế biến gỗ bên cạnh
+            các sản phẩm Pallet truyền thống.
+          </p>
+          <a
+            href="#san-pham"
+            class="bg-brand-red hover-brand-red text-white font-bold py-3 px-8 rounded shadow-lg uppercase tracking-wider transition transform hover:scale-105 border-2 border-white"
+          >
+            Xem Ngay
+          </a>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img
+          src="https://i.postimg.cc/qqxH2WSS/Cn70-Coil-Nailer-for-Framing-and-Subflooring-with-Large-Capacity-(1).avif"
+          alt="Banner 2"
+          class="w-full h-full object-cover opacity-50"
+        />
+        <div
+          class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 carousel-content"
+        >
+          <span
+            class="bg-blue-600 text-white px-4 py-1 rounded font-bold uppercase text-sm mb-4"
+            >Sản phẩm hỗ trợ đắc lực</span
+          >
+          <h2
+            class="text-white text-3xl md:text-6xl font-black uppercase mb-4 drop-shadow-xl tracking-wide"
+          >
+            MÁY BẮN ĐINH CÔNG NGHIỆP <br />
+            <span class="text-yellow-400">CN 55 - CN 70</span>
+          </h2>
+          <p
+            class="text-gray-100 text-lg md:text-2xl max-w-3xl mb-8 drop-shadow-md"
+          >
+            Giải pháp hoàn hảo cho việc đóng Pallet, thùng gỗ với hiệu suất cao
+            nhất.
+          </p>
+          <div class="flex gap-4">
+            <a
+              href="#san-pham"
+              class="bg-white text-brand-red font-bold py-3 px-8 rounded shadow-lg uppercase tracking-wider transition hover:bg-gray-100"
+            >
+              Chi tiết
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img
+          src="https://i.postimg.cc/sgDs4DVc/250-7522-20240805-154019.jpg"
+          alt="Banner 3"
+          class="w-full h-full object-cover opacity-50"
+        />
+        <div
+          class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 carousel-content"
+        >
+          <span
+            class="bg-red-600 text-white px-4 py-1 rounded font-bold uppercase text-sm mb-4"
+            >Đa dạng hóa sản phẩm</span
+          >
+          <h2
+            class="text-white text-3xl md:text-6xl font-black uppercase mb-4 drop-shadow-xl tracking-wide"
+          >
+            THIẾT BỊ PHỤ TRỢ <br />
+            <span class="text-yellow-400">LƯỠI MÀI - MÁY CHẾ BIẾN GỖ</span>
+          </h2>
+          <p
+            class="text-gray-100 text-lg md:text-2xl max-w-3xl mb-8 drop-shadow-md"
+          >
+            Cung cấp đầy đủ vật tư tiêu hao và máy móc chuyên dụng cho xưởng
+            mộc.
+          </p>
+          <a
+            href="tel:0978634092"
+            class="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold py-3 px-8 rounded shadow-lg uppercase tracking-wider transition transform hover:scale-105"
+          >
+            <i class="fas fa-phone mr-2"></i> Tư vấn ngay
+          </a>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <button
+        onclick="prevSlide()"
+        class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-sm transition z-20 border border-white/50"
+      >
+        <i class="fas fa-chevron-left text-2xl"></i>
+      </button>
+      <button
+        onclick="nextSlide()"
+        class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-sm transition z-20 border border-white/50"
+      >
+        <i class="fas fa-chevron-right text-2xl"></i>
+      </button>
+
+      <!-- Indicators -->
+      <div
+        class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-20"
+      >
+        <button
+          onclick="goToSlide(0)"
+          class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition indicator active:bg-white"
+        ></button>
+        <button
+          onclick="goToSlide(1)"
+          class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition indicator"
+        ></button>
+        <button
+          onclick="goToSlide(2)"
+          class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition indicator"
+        ></button>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION (UPDATED) -->
+    <section id="ve-chung-toi" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2
+            class="text-2xl md:text-3xl font-bold text-brand-red uppercase hover:underline decoration-2 underline-offset-8"
+          >
+            VỀ CHÚNG TÔI
+          </h2>
+          <p class="text-gray-500 mt-2 font-semibold italic">
+            Pallet Gỗ Hòa Phát - Hợp tác cùng phát triển!
+          </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-10 items-start">
+          <div class="md:w-1/2 text-justify text-gray-700 leading-relaxed">
+            <p class="mb-4">
+              <span class="text-brand-red font-bold text-lg"
+                >CÔNG TY TNHH MTV PALLET GỖ HÒA PHÁT</span
+              >
+              được thành lập từ năm 2004. Với bề dày kinh nghiệm trong lĩnh vực
+              sản xuất Pallet, chúng tôi tự tin khẳng định vị thế là một trong
+              những doanh nghiệp hàng đầu khu vực miền Bắc.
+            </p>
+
+            <!-- CÂU CHUYỆN THƯƠNG HIỆU -->
+            <div
+              class="my-6 bg-red-50 p-5 rounded-lg border-l-4 border-brand-red shadow-sm"
+            >
+              <h3 class="font-bold text-brand-red text-lg mb-2 uppercase">
+                <i class="fas fa-quote-left mr-2"></i>Vì sao chúng tôi bán máy
+                bắn đinh?
+              </h3>
+              <p class="italic text-gray-800 font-medium">
+                "Thấu hiểu từ nỗi đau của chính mình!"
+              </p>
+              <p class="mt-2 text-sm text-gray-700">
+                Là những người trực tiếp sản xuất hàng triệu chiếc Pallet, chúng
+                tôi hiểu rõ sự bực dọc khi máy móc hỏng hóc, kẹt đinh làm gián
+                đoạn tiến độ. Vì vậy, Hòa Phát quyết định không chỉ đóng Pallet,
+                mà còn chia sẻ những dòng máy bắn đinh
+                <strong>"nồi đồng cối đá"</strong> nhất mà chính xưởng chúng tôi
+                đã kiểm chứng suốt 20 năm qua. Chúng tôi bán sự yên tâm, bán
+                công cụ đắc lực để anh em thợ chỉ việc tập trung sản xuất.
+              </p>
+            </div>
+
+            <div
+              class="mb-4 bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400"
+            >
+              <strong class="text-gray-800 block mb-2 uppercase"
+                >Lĩnh vực hoạt động chính:</strong
+              >
+              <ul class="list-none space-y-2 pl-2">
+                <li>
+                  <i class="fas fa-check-circle text-brand-red mr-2"></i
+                  ><strong>Sản xuất truyền thống:</strong> Pallet gỗ, Thùng gỗ,
+                  Bao bì gỗ, Ván ép.
+                </li>
+                <li>
+                  <i class="fas fa-check-circle text-brand-red mr-2"></i
+                  ><strong>Phân phối thiết bị:</strong> Máy bắn đinh công nghiệp
+                  (CN55, CN70...), Máy chế biến gỗ.
+                </li>
+                <li>
+                  <i class="fas fa-check-circle text-brand-red mr-2"></i
+                  ><strong>Vật tư tiêu hao:</strong> Lưỡi mài, đinh cuộn, phụ
+                  kiện máy móc ngành gỗ.
+                </li>
+              </ul>
+            </div>
+            <p>
+              Chúng tôi cam kết sản phẩm luôn đảm bảo chất lượng, được kiểm định
+              kỹ càng và giá cả cạnh tranh nhất thị trường.
+            </p>
+          </div>
+          <div class="md:w-1/2">
+            <img
+              src="https://i.postimg.cc/3J3T3JDR/Cn70-Coil-Nailer-for-Framing-and-Subflooring-with-Large-Capacity.avif"
+              alt="Kho hang Hoa Phat"
+              class="rounded shadow-lg w-full object-cover h-full border border-gray-200"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SẢN PHẨM & DANH MỤC -->
+    <section id="san-pham" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <!-- Banner Ngành -->
+        <div
+          class="w-full bg-white p-6 shadow-sm mb-8 text-center border-t-4 border-brand-red rounded-lg"
+        >
+          <h2 class="text-3xl md:text-4xl font-black text-brand-red uppercase">
+            DANH MỤC THIẾT BỊ NGÀNH GỖ
+          </h2>
+          <p class="text-gray-500 mt-2 font-medium">
+            Sản phẩm chất lượng - Giá thành cạnh tranh
+          </p>
+        </div>
+
+        <!-- CATEGORY FILTERS (MENU DANH MỤC) -->
+        <div
+          class="flex flex-wrap justify-center gap-4 mb-12"
+          id="category-filters"
+        >
+          <button
+            class="filter-btn active px-6 py-2 rounded-full border border-gray-300 font-bold text-gray-700 bg-white hover:bg-red-50"
+            onclick="filterProducts('all')"
+          >
+            Tất cả
+          </button>
+          <button
+            class="filter-btn px-6 py-2 rounded-full border border-gray-300 font-bold text-gray-700 bg-white hover:bg-red-50"
+            onclick="filterProducts('sung-ban-dinh')"
+          >
+            <i class="fas fa-gavel mr-2"></i>Máy Bắn Đinh
+          </button>
+          <button
+            class="filter-btn px-6 py-2 rounded-full border border-gray-300 font-bold text-gray-700 bg-white hover:bg-red-50"
+            onclick="filterProducts('day-hoi')"
+          >
+            <i class="fas fa-wind mr-2"></i>Dây Hơi & Phụ Kiện
+          </button>
+          <button
+            class="filter-btn px-6 py-2 rounded-full border border-gray-300 font-bold text-gray-700 bg-white hover:bg-red-50"
+            onclick="filterProducts('may-go')"
+          >
+            <i class="fas fa-tools mr-2"></i>Máy Chế Biến Gỗ
+          </button>
+        </div>
+
+        <!-- Product Grid Wrapper -->
+        <div
+          id="product-grid"
+          class="flex flex-col gap-12 max-w-6xl mx-auto min-h-[500px]"
+        >
+          <!-- PRODUCT 1: CN 55 (Category: sung-ban-dinh) -->
+          <div
+            class="product-item bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200 overflow-hidden group/card"
+            data-category="sung-ban-dinh"
+          >
+            <div class="flex flex-col md:flex-row">
+              <!-- Cột Ảnh (Bên trái) -->
+              <div
+                class="w-full md:w-5/12 p-6 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200"
+              >
+                <div
+                  class="relative rounded-lg border border-gray-200 mb-4 h-80 md:h-96 zoom-container"
+                  data-scale="2.5"
+                >
+                  <img
+                    id="main-img-cn55"
+                    src="http://i.postimg.cc/SRFm66sc/may-ban-dinh-meite-cn55-1-d2769b67cce447bfb57b764b6db17a33-master.jpg"
+                    class="zoom-img"
+                    alt="May CN 55"
+                  />
+                  <div
+                    class="absolute top-4 left-4 bg-red-600 text-white font-bold px-3 py-1 rounded shadow-md z-10 pointer-events-none"
+                  >
+                    BEST SELLER
+                  </div>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      onclick="changeImage('cn55', this)"
+                      src="http://i.postimg.cc/SRFm66sc/may-ban-dinh-meite-cn55-1-d2769b67cce447bfb57b764b6db17a33-master.jpg"
+                      class="thumb-img active h-full w-full"
+                    />
+                  </div>
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      onclick="changeImage('cn55', this)"
+                      src="https://i.postimg.cc/jj2qtqmj/meite-cn55-7288.jpg"
+                      class="thumb-img h-full w-full"
+                    />
+                  </div>
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      onclick="changeImage('cn55', this)"
+                      src="https://i.postimg.cc/Nf8jxzRL/sung-ban-dinh-cuon-meite-CN.jpg"
+                      class="thumb-img h-full w-full"
+                    />
+                  </div>
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      onclick="changeImage('cn55', this)"
+                      src="https://i.postimg.cc/151zwQnJ/sung-ban-dinh-cuon-meite-cn55-3-1550663206e14bdaae24499d307f01f6.jpg"
+                      class="thumb-img h-full w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cột Thông tin -->
+              <div
+                class="w-full md:w-7/12 p-6 md:p-8 flex flex-col justify-between"
+              >
+                <div>
+                  <h3
+                    class="text-2xl md:text-3xl font-bold text-gray-800 uppercase mb-2 group-hover/card:text-brand-red transition"
+                  >
+                    Máy Bắn Đinh Cuộn CN 55
+                  </h3>
+                  <div class="flex items-center gap-4 mb-6">
+                    <div class="text-3xl font-bold text-brand-red">
+                      850.000đ
+                    </div>
+                    <div class="text-gray-400 line-through text-lg">
+                      950.000đ
+                    </div>
+                    <span
+                      class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold uppercase"
+                      >Giá chưa VAT</span
+                    >
+                  </div>
+
+                  <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div
+                      class="bg-blue-50 p-4 rounded-lg border border-blue-100"
+                    >
+                      <h4
+                        class="font-bold text-blue-800 mb-3 uppercase border-b border-blue-200 pb-1"
+                      >
+                        <i class="fas fa-cogs mr-1"></i> Thông số kỹ thuật
+                      </h4>
+                      <ul class="text-sm space-y-2 text-gray-700">
+                        <li class="flex justify-between">
+                          <span>Trọng lượng:</span
+                          ><span class="font-bold">2.75 Kg</span>
+                        </li>
+                        <li class="flex justify-between">
+                          <span>Sức chứa:</span
+                          ><span class="font-bold">300 - 350 đinh</span>
+                        </li>
+                        <li class="flex justify-between">
+                          <span>Áp suất hơi:</span
+                          ><span class="font-bold">5 - 7 kg/cm²</span>
+                        </li>
+                        <li class="flex justify-between">
+                          <span>Kích thước đinh:</span
+                          ><span class="font-bold text-red-600"
+                            >25mm - 57mm</span
+                          >
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div
+                      class="bg-yellow-50 p-4 rounded-lg border border-yellow-100"
+                    >
+                      <h4
+                        class="font-bold text-yellow-800 mb-3 uppercase border-b border-yellow-200 pb-1"
+                      >
+                        <i class="fas fa-star mr-1"></i> Ưu điểm nổi bật
+                      </h4>
+                      <ul class="text-sm space-y-2 text-gray-700">
+                        <li>
+                          <i class="fas fa-check text-green-500 mr-2"></i
+                          ><strong>Nhỏ gọn:</strong> Thao tác 1 tay linh hoạt,
+                          không mỏi.
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-green-500 mr-2"></i
+                          ><strong>Tốc độ cao:</strong> Tăng năng suất gấp 2
+                          lần.
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-green-500 mr-2"></i
+                          ><strong>Ứng dụng:</strong> Pallet gỗ, khung tranh,
+                          thùng gỗ.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p
+                    class="text-gray-600 text-sm mb-6 italic border-l-4 border-gray-300 pl-3"
+                  >
+                    "Dòng máy CN 55 là lựa chọn số 1 cho các xưởng làm hàng
+                    pallet xuất khẩu nhẹ và đồ nội thất."
+                  </p>
+                </div>
+
+                <div class="flex gap-4 mt-auto">
+                  <a
+                    href="tel:0978634092"
+                    class="flex-1 bg-brand-red text-white text-center py-3 rounded-lg hover:bg-red-800 font-bold uppercase shadow-lg transition transform hover:-translate-y-1"
+                  >
+                    <i class="fas fa-phone-alt mr-2"></i> Gọi tư vấn ngay
+                  </a>
+                  <a
+                    href="https://zalo.me/0978634092"
+                    target="_blank"
+                    style="background-color: #0068ff"
+                    class="flex items-center justify-center gap-2 flex-1 text-white text-center py-3 rounded-lg font-bold uppercase shadow-lg transition transform hover:-translate-y-1 hover:opacity-90"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png"
+                      alt="Zalo Icon"
+                      class="w-7 h-7 object-contain bg-white rounded-full p-1"
+                    />
+
+                    <span>Chat Zalo</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT 2: CN 75 (Category: sung-ban-dinh) -->
+          <div
+            class="product-item bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200 overflow-hidden group/card"
+            data-category="sung-ban-dinh"
+          >
+            <div class="flex flex-col md:flex-row">
+              <div
+                class="w-full md:w-5/12 p-6 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200"
+              >
+                <div
+                  class="relative rounded-lg border border-gray-200 mb-4 h-80 md:h-96 zoom-container"
+                  data-scale="2.5"
+                >
+                  <img
+                    id="main-img-cn70"
+                    src="https://i.postimg.cc/g2SdSFJ1/cn70.png"
+                    class="zoom-img"
+                    alt="May CN 75"
+                  />
+                  <div
+                    class="absolute top-4 left-4 bg-yellow-500 text-white font-bold px-3 py-1 rounded shadow-md z-10 pointer-events-none"
+                  >
+                    CÔNG SUẤT LỚN
+                  </div>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      onclick="changeImage('cn70', this)"
+                      src="https://i.postimg.cc/3J3T3JDR/Cn70-Coil-Nailer-for-Framing-and-Subflooring-with-Large-Capacity.avif"
+                      class="thumb-img active h-full w-full"
+                    />
+                  </div>
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      onclick="changeImage('cn70', this)"
+                      src="https://i.postimg.cc/s2Mzb6GQ/cn70-1-16ad98d30c114b0e937b59fd2fb09054-master.jpg"
+                      class="thumb-img h-full w-full"
+                    />
+                  </div>
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      onclick="changeImage('cn70', this)"
+                      src="https://i.postimg.cc/qqxH2WSS/Cn70-Coil-Nailer-for-Framing-and-Subflooring-with-Large-Capacity-(1).avif"
+                      class="thumb-img h-full w-full"
+                    />
+                  </div>
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      onclick="changeImage('cn70', this)"
+                      src="https://i.postimg.cc/g2SdSFJ1/cn70.png"
+                      class="thumb-img h-full w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="w-full md:w-7/12 p-6 md:p-8 flex flex-col justify-between"
+              >
+                <div>
+                  <h3
+                    class="text-2xl md:text-3xl font-bold text-gray-800 uppercase mb-2 group-hover/card:text-brand-red transition"
+                  >
+                    Máy Bắn Đinh Cuộn CN 75
+                  </h3>
+                  <div class="flex items-center gap-4 mb-6">
+                    <div class="text-3xl font-bold text-brand-red">
+                      1.250.000đ
+                    </div>
+                    <div class="text-gray-400 line-through text-lg">
+                      1.450.000đ
+                    </div>
+                    <span
+                      class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold uppercase"
+                      >Miễn phí vận chuyển</span
+                    >
+                  </div>
+
+                  <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div
+                      class="bg-gray-100 p-4 rounded-lg border border-gray-200"
+                    >
+                      <h4
+                        class="font-bold text-gray-800 mb-3 uppercase border-b border-gray-300 pb-1"
+                      >
+                        <i class="fas fa-cogs mr-1"></i> Thông số kỹ thuật
+                      </h4>
+                      <ul class="text-sm space-y-2 text-gray-700">
+                        <li class="flex justify-between">
+                          <span>Trọng lượng:</span
+                          ><span class="font-bold">3.2 Kg (Đầm tay)</span>
+                        </li>
+                        <li class="flex justify-between">
+                          <span>Sức chứa:</span
+                          ><span class="font-bold">225 - 300 đinh</span>
+                        </li>
+                        <li class="flex justify-between">
+                          <span>Áp suất hơi:</span
+                          ><span class="font-bold">6 - 8 kg/cm²</span>
+                        </li>
+                        <li class="flex justify-between">
+                          <span>Kích thước đinh:</span
+                          ><span class="font-bold text-red-600"
+                            >45mm - 75mm</span
+                          >
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div
+                      class="bg-orange-50 p-4 rounded-lg border border-orange-100"
+                    >
+                      <h4
+                        class="font-bold text-orange-800 mb-3 uppercase border-b border-orange-200 pb-1"
+                      >
+                        <i class="fas fa-dumbbell mr-1"></i> Sức mạnh vượt trội
+                      </h4>
+                      <ul class="text-sm space-y-2 text-gray-700">
+                        <li>
+                          <i class="fas fa-check text-green-500 mr-2"></i
+                          ><strong>Xuyên phá mạnh:</strong> Bắn ngập đinh vào gỗ
+                          cứng.
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-green-500 mr-2"></i
+                          ><strong>Siêu bền:</strong> Thân đúc nguyên khối chịu
+                          va đập cực tốt.
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-green-500 mr-2"></i
+                          ><strong>Chuyên dụng:</strong> Pallet xuất khẩu tải
+                          trọng lớn.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p
+                    class="text-gray-600 text-sm mb-6 italic border-l-4 border-gray-300 pl-3"
+                  >
+                    "CN 75 là giải pháp tối ưu cho tình trạng đinh bị lồi, cong
+                    khi làm việc với các loại gỗ cứng."
+                  </p>
+                </div>
+
+                <div class="flex gap-4 mt-auto">
+                  <a
+                    href="tel:0978634092"
+                    class="flex-1 bg-brand-red text-white text-center py-3 rounded-lg hover:bg-red-800 font-bold uppercase shadow-lg transition transform hover:-translate-y-1"
+                  >
+                    <i class="fas fa-phone-alt mr-2"></i> Gọi tư vấn ngay
+                  </a>
+                  <a
+                    href="https://zalo.me/0978634092"
+                    class="flex-1 bg-blue-600 text-white flex items-center justify-center gap-2 text-center py-3 rounded-lg hover:bg-blue-700 font-bold uppercase shadow-lg transition transform hover:-translate-y-1"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png"
+                      alt="Zalo Icon"
+                      class="w-7 h-7 object-contain bg-white rounded-full p-1"
+                    />
+                    <span>Chat Zalo</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT 3: Dây hơi (Category: day-hoi) (MỚI) -->
+          <div
+            class="product-item bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200 overflow-hidden group/card hidden-item"
+            data-category="day-hoi"
+          >
+            <div class="flex flex-col md:flex-row">
+              <div
+                class="w-full md:w-5/12 p-6 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200"
+              >
+                <div
+                  class="relative rounded-lg border border-gray-200 mb-4 h-80 md:h-96 zoom-container"
+                  data-scale="2.5"
+                >
+                  <img
+                    id="main-img-dayhoi"
+                    src="https://i.postimg.cc/k47Z69qW/day-hoi-tu-rut-10m.jpg"
+                    class="zoom-img object-contain"
+                    alt="Dây hơi tự rút"
+                  />
+                  <div
+                    class="absolute top-4 left-4 bg-blue-600 text-white font-bold px-3 py-1 rounded shadow-md z-10 pointer-events-none"
+                  >
+                    DỤNG CỤ
+                  </div>
+                </div>
+                <!-- Thumbnail Placeholder -->
+                <div class="grid grid-cols-4 gap-2">
+                  <div
+                    class="h-16 w-full border bg-white rounded overflow-hidden"
+                  >
+                    <img
+                      src="https://i.postimg.cc/k47Z69qW/day-hoi-tu-rut-10m.jpg"
+                      class="thumb-img active h-full w-full object-contain"
+                    />
+                  </div>
+                  <!-- Add more thumbnails if needed -->
+                </div>
+              </div>
+
+              <div
+                class="w-full md:w-7/12 p-6 md:p-8 flex flex-col justify-between"
+              >
+                <div>
+                  <h3
+                    class="text-2xl md:text-3xl font-bold text-gray-800 uppercase mb-2 group-hover/card:text-brand-red transition"
+                  >
+                    Dây Hơi Tự Rút 10M-15M
+                  </h3>
+                  <div class="flex items-center gap-4 mb-6">
+                    <div class="text-3xl font-bold text-brand-red">Liên hệ</div>
+                    <span
+                      class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-bold uppercase"
+                      >Hàng chính hãng</span
+                    >
+                  </div>
+
+                  <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <h4
+                      class="font-bold text-blue-800 mb-3 uppercase border-b border-blue-200 pb-1"
+                    >
+                      <i class="fas fa-info-circle mr-1"></i> Đặc điểm
+                    </h4>
+                    <ul class="text-sm space-y-2 text-gray-700">
+                      <li>
+                        <i class="fas fa-check text-green-500 mr-2"></i
+                        ><strong>Chất liệu:</strong> PU cao cấp, chịu áp lực
+                        cao.
+                      </li>
+                      <li>
+                        <i class="fas fa-check text-green-500 mr-2"></i
+                        ><strong>Tiện lợi:</strong> Tự động thu dây, chống rối.
+                      </li>
+                      <li>
+                        <i class="fas fa-check text-green-500 mr-2"></i
+                        ><strong>Độ bền:</strong> Vỏ nhựa ABS chống va đập.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                  <a
+                    href="tel:0978634092"
+                    class="flex-1 bg-brand-red text-white text-center py-3 rounded-lg hover:bg-red-800 font-bold uppercase shadow-lg transition transform hover:-translate-y-1"
+                  >
+                    <i class="fas fa-phone-alt mr-2"></i> Báo giá
+                  </a>
+                  <a
+                    href="https://zalo.me/0978634092"
+                    class="flex-1 bg-blue-600 text-white flex items-center justify-center gap-2 text-center py-3 rounded-lg hover:bg-blue-700 font-bold uppercase shadow-lg transition transform hover:-translate-y-1"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png"
+                      alt="Zalo"
+                      class="w-7 h-7 object-contain bg-white rounded-full p-1"
+                    />
+                    <span>Chat Zalo</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT 4: Máy chế biến gỗ (Category: may-go) (MỚI) -->
+          <div
+            class="product-item bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200 overflow-hidden group/card hidden-item"
+            data-category="may-go"
+          >
+            <div class="flex flex-col md:flex-row">
+              <div
+                class="w-full md:w-5/12 p-6 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200"
+              >
+                <div
+                  class="relative rounded-lg border border-gray-200 mb-4 h-80 md:h-96 zoom-container"
+                  data-scale="2.5"
+                >
+                  <img
+                    id="main-img-maygo"
+                    src="https://i.postimg.cc/ZR60s5yv/may-bao-go-makita-kp0800x-1.jpg"
+                    class="zoom-img object-contain"
+                    alt="Máy bào gỗ"
+                  />
+                  <div
+                    class="absolute top-4 left-4 bg-orange-500 text-white font-bold px-3 py-1 rounded shadow-md z-10 pointer-events-none"
+                  >
+                    MÁY CẦM TAY
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="w-full md:w-7/12 p-6 md:p-8 flex flex-col justify-between"
+              >
+                <div>
+                  <h3
+                    class="text-2xl md:text-3xl font-bold text-gray-800 uppercase mb-2 group-hover/card:text-brand-red transition"
+                  >
+                    Máy Bào Gỗ Cầm Tay Makita
+                  </h3>
+                  <div class="flex items-center gap-4 mb-6">
+                    <div class="text-3xl font-bold text-brand-red">Liên hệ</div>
+                    <span
+                      class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold uppercase"
+                      >Nhập khẩu</span
+                    >
+                  </div>
+
+                  <div
+                    class="bg-orange-50 p-4 rounded-lg border border-orange-100"
+                  >
+                    <h4
+                      class="font-bold text-orange-800 mb-3 uppercase border-b border-orange-200 pb-1"
+                    >
+                      <i class="fas fa-tools mr-1"></i> Ứng dụng
+                    </h4>
+                    <p class="text-sm text-gray-700 mb-2">
+                      Chuyên dùng để bào mặt phẳng, làm nhẵn bề mặt gỗ thô trước
+                      khi đưa vào đóng Pallet hoặc gia công tinh.
+                    </p>
+                    <ul class="text-sm space-y-2 text-gray-700">
+                      <li>
+                        <i class="fas fa-check text-green-500 mr-2"></i
+                        ><strong>Công suất:</strong> Mạnh mẽ, hoạt động bền bỉ.
+                      </li>
+                      <li>
+                        <i class="fas fa-check text-green-500 mr-2"></i
+                        ><strong>Lưỡi bào:</strong> Sắc bén, dễ dàng thay thế.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                  <a
+                    href="tel:0978634092"
+                    class="flex-1 bg-brand-red text-white text-center py-3 rounded-lg hover:bg-red-800 font-bold uppercase shadow-lg transition transform hover:-translate-y-1"
+                  >
+                    <i class="fas fa-phone-alt mr-2"></i> Báo giá
+                  </a>
+                  <a
+                    href="https://zalo.me/0978634092"
+                    class="flex-1 bg-blue-600 text-white flex items-center justify-center gap-2 text-center py-3 rounded-lg hover:bg-blue-700 font-bold uppercase shadow-lg transition transform hover:-translate-y-1"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png"
+                      alt="Zalo"
+                      class="w-7 h-7 object-contain bg-white rounded-full p-1"
+                    />
+                    <span>Chat Zalo</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NĂNG LỰC -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold text-brand-red uppercase">
+            HÒA PHÁT - UY TÍN TẠO NIỀM TIN
+          </h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div
+            class="border-4 border-gray-500 rounded-xl p-6 text-center hover:border-brand-red transition duration-300 group"
+          >
+            <i
+              class="fas fa-layer-group text-4xl mb-4 text-gray-700 group-hover:text-brand-red"
+            ></i>
+            <p class="text-3xl font-bold text-gray-800 mb-2">2004</p>
+            <p class="text-gray-600">Năm Thành Lập</p>
+          </div>
+          <div
+            class="border-4 border-gray-500 rounded-xl p-6 text-center hover:border-brand-red transition duration-300 group"
+          >
+            <i
+              class="fas fa-users text-4xl mb-4 text-gray-700 group-hover:text-brand-red"
+            ></i>
+            <p class="text-3xl font-bold text-gray-800 mb-2">+1000</p>
+            <p class="text-gray-600">Khách Hàng</p>
+          </div>
+          <div
+            class="border-4 border-gray-500 rounded-xl p-6 text-center hover:border-brand-red transition duration-300 group"
+          >
+            <i
+              class="fas fa-box-open text-4xl mb-4 text-gray-700 group-hover:text-brand-red"
+            ></i>
+            <p class="text-3xl font-bold text-gray-800 mb-2">+100%</p>
+            <p class="text-gray-600">Hàng Chính Hãng</p>
+          </div>
+          <div
+            class="border-4 border-gray-500 rounded-xl p-6 text-center hover:border-brand-red transition duration-300 group"
+          >
+            <i
+              class="fas fa-handshake text-4xl mb-4 text-gray-700 group-hover:text-brand-red"
+            ></i>
+            <p class="text-3xl font-bold text-gray-800 mb-2">+50</p>
+            <p class="text-gray-600">Đối Tác Xưởng</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAM KẾT (FULL) -->
+    <section id="cam-ket" class="py-16 bg-brand-red text-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold uppercase text-white">
+            CAM KẾT CHẤT LƯỢNG
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="flex items-start gap-4">
+            <div class="w-16 flex-shrink-0 text-center">
+              <i class="fas fa-medal text-5xl text-yellow-400"></i>
+            </div>
+            <div>
+              <h5 class="text-xl font-bold mb-2">Đúng thiết kế</h5>
+              <p class="text-justify text-sm opacity-90">
+                Đảm bảo sản xuất Pallet và cung cấp thiết bị đúng theo mô tả,
+                bản vẽ của khách hàng.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-16 flex-shrink-0 text-center">
+              <i class="fas fa-dollar-sign text-5xl text-yellow-400"></i>
+            </div>
+            <div>
+              <h5 class="text-xl font-bold mb-2">Giá thành cạnh tranh</h5>
+              <p class="text-justify text-sm opacity-90">
+                Chúng tôi cam kết mức giá tốt nhất khu vực miền Bắc, tối ưu chi
+                phí cho đối tác.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-16 flex-shrink-0 text-center">
+              <i class="fas fa-shipping-fast text-5xl text-yellow-400"></i>
+            </div>
+            <div>
+              <h5 class="text-xl font-bold mb-2">Vận chuyển nhanh chóng</h5>
+              <p class="text-justify text-sm opacity-90">
+                Đảm bảo tiến độ giao hàng nhanh nhất từ khi đặt hàng cho đến
+                ngày giao hàng đầu tiên.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER (FULL) -->
+    <footer
+      id="footer"
+      class="bg-white text-gray-800 pt-16 pb-8 border-t border-gray-200"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Cột 1 -->
+          <div>
+            <!-- Added Logo in Footer -->
+            <img
+              src="http://palletgohoaphat.com/logo/2146/logo%20web.png"
+              alt="Logo Pallet Gỗ Hòa Phát"
+              class="mb-4 h-16 w-auto object-contain"
+            />
+
+            <h3 class="text-brand-red font-black text-xl uppercase mb-2">
+              CÔNG TY TNHH MTV PALLET GỖ HÒA PHÁT
+            </h3>
+            <p class="text-xs font-bold text-gray-500 mb-4 uppercase">
+              PALLET GO HOA PHAT COMPANY LIMITED
+            </p>
+            <p class="text-justify text-gray-600 mb-4 leading-relaxed">
+              Hoạt động tại thị trường Việt Nam từ năm 2004, Hòa Phát là doanh
+              nghiệp uy tín chuyên sản xuất bao bì gỗ, pallet và cung cấp thiết
+              bị công nghiệp phụ trợ ngành gỗ.
+            </p>
+            <div
+              class="w-full h-40 bg-gray-200 rounded overflow-hidden shadow-inner"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.250065146983!2d106.14590011098498!3d20.98261088057459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135a1f9a5342227%3A0x36dc57fe63beb405!2zQ8O0bmcgVHkgVE5ISCBN4buZdCBUaMOgbmggVmnDqm4gUGFsbGV0IEfhu5cgSMOyYSBQaMOhdA!5e0!3m2!1svi!2s"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <!-- Cột 2 -->
+          <div>
+            <p class="text-brand-red font-bold text-xl mb-4 uppercase">
+              LIÊN KẾT NHANH
+            </p>
+            <ul class="space-y-3 font-medium">
+              <li>
+                <a href="#" class="hover:text-brand-red transition"
+                  ><i class="fas fa-angle-right mr-2 text-gray-400"></i> TRANG
+                  CHỦ</a
+                >
+              </li>
+              <li>
+                <a href="#ve-chung-toi" class="hover:text-brand-red transition"
+                  ><i class="fas fa-angle-right mr-2 text-gray-400"></i> GIỚI
+                  THIỆU</a
+                >
+              </li>
+              <li>
+                <a href="#san-pham" class="hover:text-brand-red transition"
+                  ><i class="fas fa-angle-right mr-2 text-gray-400"></i> DANH
+                  MỤC SẢN PHẨM</a
+                >
+              </li>
+              <li>
+                <a href="#cam-ket" class="hover:text-brand-red transition"
+                  ><i class="fas fa-angle-right mr-2 text-gray-400"></i> CHÍNH
+                  SÁCH & CAM KẾT</a
+                >
+              </li>
+            </ul>
+          </div>
+          <!-- Cột 3 -->
+          <div>
+            <p class="text-brand-red font-bold text-xl mb-4 uppercase">
+              THÔNG TIN LIÊN HỆ
+            </p>
+            <p class="font-bold mb-2 uppercase">
+              CÔNG TY TNHH MTV PALLET GỖ HÒA PHÁT
+            </p>
+            <p class="text-gray-600 mb-2">
+              <strong>Địa chỉ:</strong> Thôn Hộ Vệ, xã Cẩm Giàng, Thành Phố Hải
+              Phòng.
+            </p>
+            <p class="text-gray-600 mb-2">
+              <strong>Điện thoại:</strong>
+              <a
+                href="tel:0978634092"
+                class="text-brand-red font-bold hover:underline"
+                >0978.634.092</a
+              >
+            </p>
+            <p class="text-gray-600 mb-2">
+              <strong>Email:</strong> tienthamtechnical@gmail.com
+            </p>
+            <div class="mt-4 flex gap-3">
+              <a
+                href="https://zalo.me/0978634092"
+                class="bg-blue-500 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center hover:opacity-80"
+              >
+                <!-- Zalo Icon Footer -->
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png"
+                  alt="Zalo"
+                  class="w-6 h-6 object-contain bg-white rounded-full p-0.5"
+                />
+              </a>
+              <a
+                href="tel:0978634092"
+                class="bg-green-500 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center hover:opacity-80"
+                ><i class="fas fa-phone-alt"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bottom Copyright -->
+    <div class="bg-white py-4 border-t border-gray-200">
+      <div class="container mx-auto px-4 text-center">
+        <p class="text-sm text-gray-500">
+          <span class="font-bold">CÔNG TY TNHH MTV PALLET GỖ HÒA PHÁT</span
+          ><br />
+          Địa chỉ: Thôn Hộ Vệ, xã Cẩm Giàng, Thành Phố Hải Phòng<br />
+          <small>© Bản quyền thuộc về PALLET GỖ HÒA PHÁT.</small>
+        </p>
+      </div>
+    </div>
+
+    <!-- AI CHAT WIDGET -->
+    <div id="ai-chat-window">
+      <div
+        class="bg-brand-red text-white px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span class="font-bold">Trợ lý Pallet Hòa Phát AI</span>
+        </div>
+        <button onclick="toggleAIChat()" class="hover:opacity-70 text-xl">
+          &times;
+        </button>
+      </div>
+      <div id="ai-chat-messages">
+        <div class="ai-message bot">
+          Chào anh/chị! Em là trợ lý ảo của Pallet Gỗ Hòa Phát. Em có thể tư vấn
+          gì về Pallet, máy bắn đinh hay vật tư ngành gỗ không ạ?
+        </div>
+      </div>
+      <div class="p-3 border-t flex gap-2">
+        <input
+          type="text"
+          id="ai-chat-input"
+          placeholder="Nhập câu hỏi tại đây..."
+          class="flex-1 border border-gray-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-brand-red"
+          onkeypress="if (event.key === 'Enter') sendAIMessage();"
+        />
+        <button
+          onclick="sendAIMessage()"
+          class="bg-brand-red text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90 transition"
+        >
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+    <div id="ai-chat-toggle" onclick="toggleAIChat()">
+      <i class="fas fa-robot text-2xl"></i>
+    </div>
+
+    <!-- Contact Floating (PC) -->
+    <div class="hidden md:flex floating-contact">
+      <a
+        href="https://zalo.me/0978634092"
+        target="_blank"
+        class="floating-item"
+      >
+        <span class="floating-text text-blue-600 border border-blue-200"
+          >Chat Zalo</span
+        >
+        <div class="icon-circle bg-blue-600">
+          <!-- Thay thế chữ Z bằng Logo Zalo -->
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png"
+            alt="Zalo"
+            class="w-full h-full object-cover p-1 bg-white"
+          />
+        </div>
+      </a>
+      <a
+        href="https://www.facebook.com/t.tham.nguyen.9066"
+        target="_blank"
+        class="floating-item"
+      >
+        <span class="floating-text text-blue-800 border border-blue-300"
+          >Messenger</span
+        >
+        <div class="icon-circle bg-blue-800">
+          <i class="fab fa-facebook-messenger"></i>
+        </div>
+      </a>
+      <a href="tel:0978634092" class="floating-item">
+        <span class="floating-text text-red-600 border border-red-200"
+          >0978.634.092</span
+        >
+        <div class="icon-circle bg-brand-red pulse-ring border-2 border-white">
+          <i class="fas fa-phone-alt"></i>
+        </div>
+      </a>
+      <a
+        href="https://trangvangvietnam.com/listings/1187770554/pallet-go-hoa-phat-cong-ty-tnhh-mot-thanh-vien-pallet-go-hoa-phat.html"
+        target="_blank"
+        class="floating-item"
+      >
+        <span class="floating-text text-yellow-700 border border-yellow-300"
+          >Trang Vàng</span
+        >
+        <div class="icon-circle bg-yellow-500">
+          <i class="fas fa-search"></i>
+        </div>
+      </a>
+    </div>
+
+    <!-- BOTTOM BAR (Mobile) -->
+    <div
+      class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-between px-2 py-2 md:hidden z-50 shadow-[0_-2px_10px_rgba(0,0,0,0.15)]"
+    >
+      <a
+        href="tel:0978634092"
+        class="flex-1 bg-green-600 text-white rounded-lg flex flex-col items-center justify-center py-1 mr-2 shadow-md hover:bg-green-700"
+      >
+        <i class="fas fa-phone-volume text-lg mb-1"></i>
+        <span class="text-[10px] font-bold uppercase">Gọi Điện</span>
+      </a>
+      <a
+        href="https://zalo.me/0978634092"
+        class="flex-1 bg-blue-500 text-white rounded-lg flex flex-col items-center justify-center py-1 mr-2 shadow-md hover:bg-blue-600"
+      >
+        <!-- Mobile Bottom Zalo Icon -->
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png"
+          alt="Zalo"
+          class="w-6 h-6 object-contain bg-white rounded-full p-0.5 mb-1"
+        />
+        <span class="text-[10px] font-bold uppercase">Chat Zalo</span>
+      </a>
+      <a
+        href="https://www.facebook.com/t.tham.nguyen.9066"
+        class="flex-1 bg-blue-700 text-white rounded-lg flex flex-col items-center justify-center py-1 shadow-md hover:bg-blue-800"
+      >
+        <i class="fab fa-facebook-messenger text-lg mb-1"></i>
+        <span class="text-[10px] font-bold uppercase">Facebook</span>
+      </a>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      /* ==========================================================
+         HƯỚNG DẪN DÁN API KEY:
+         1. Truy cập https://aistudio.google.com/app/apikey để lấy API Key miễn phí.
+         2. Dán Key vào giữa dấu ngoặc kép ở biến const apiKey dưới đây.
+         ========================================================== */
+      const apiKey = "AIzaSyAQxEkHoUkgaBLfa6dvV9qB_TsKbDQGs4s"; // <--- DÁN API KEY CỦA BẠN VÀO ĐÂY
+
+      // --- LOGIC BỘ LỌC SẢN PHẨM (MỚI) ---
+      function filterProducts(category) {
+        // 1. Cập nhật nút active
+        const buttons = document.querySelectorAll(".filter-btn");
+        buttons.forEach((btn) => {
+          btn.classList.remove("active");
+          // Logic đơn giản để tìm nút vừa bấm: so sánh onclick attribute hoặc text
+          // Ở đây dùng cách đơn giản nhất là khi bấm truyền 'this' nếu sửa HTML,
+          // nhưng do HTML fix cứng onclick="...", ta dùng logic sau:
+          if (btn.getAttribute("onclick").includes(`'${category}'`)) {
+            btn.classList.add("active");
+          }
+        });
+
+        // 2. Lọc sản phẩm
+        const products = document.querySelectorAll(".product-item");
+        products.forEach((prod) => {
+          if (category === "all" || prod.dataset.category === category) {
+            prod.classList.remove("hidden-item");
+            prod.classList.add("show-item");
+          } else {
+            prod.classList.remove("show-item");
+            prod.classList.add("hidden-item");
+          }
+        });
+      }
+      // -----------------------------------
+
+      // Logic AI Chat
+      const aiChatWindow = document.getElementById("ai-chat-window");
+      const aiChatMessages = document.getElementById("ai-chat-messages");
+      const aiChatInput = document.getElementById("ai-chat-input");
+
+      function toggleAIChat() {
+        aiChatWindow.classList.toggle("active");
+      }
+
+      async function sendAIMessage() {
+        const text = aiChatInput.value.trim();
+        if (!text) return;
+        addMessageUI(text, "user");
+        aiChatInput.value = "";
+
+        const typingDiv = document.createElement("div");
+        typingDiv.className = "ai-message bot typing-indicator";
+        typingDiv.innerHTML =
+          '<div class="typing-dots"><span></span><span></span><span></span></div>';
+        aiChatMessages.appendChild(typingDiv);
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+
+        if (!apiKey) {
+          setTimeout(() => {
+            typingDiv.remove();
+            addMessageUI(
+              "Lỗi: Bạn chưa cấu hình API Key. Hãy dán Key vào mã nguồn nhé!",
+              "bot",
+            );
+          }, 800);
+          return;
+        }
+        // --- Cấu hình nội dung AI trả lời dựa trên thông tin thực tế ---
+        const systemInstruction = `
+          Bạn là trợ lý ảo của công ty CÔNG TY TNHH MTV PALLET GỖ HÒA PHÁT. Dưới đây là kiến thức CHI TIẾT của bạn:
+          - Tên công ty: CÔNG TY TNHH MTV PALLET GỖ HÒA PHÁT.
+          - Hotline/Số điện thoại/Zalo: 0978.634.092.
+          - Email liên hệ: tienthamtechnical@gmail.com.
+          - Địa chỉ: Thôn Hộ Vệ, xã Cẩm Giàng, Thành Phố Hải Phòng.
+          - Sản phẩm chính đang bán trên website này:
+            1. Máy bắn đinh cuộn CN55: Giá 850.000đ.
+            2. Máy bắn đinh cuộn CN70: Giá 1.250.000đ.
+          - CÂU CHUYỆN THƯƠNG HIỆU (QUAN TRỌNG):
+             "Tại sao Pallet Gỗ Hòa Phát lại bán máy bắn đinh?": Xuất phát điểm là xưởng sản xuất Pallet gỗ quy mô lớn (từ 2004), chúng tôi đã trực tiếp sử dụng rất nhiều loại máy bắn đinh. Qua quá trình làm nghề, chúng tôi đã lọc ra được những dòng máy bền bỉ nhất, ít hỏng vặt nhất. Chúng tôi quyết định phân phối lại chính những dòng máy mà chúng tôi đang dùng tại xưởng để chia sẻ giải pháp tốt cho anh em thợ. Cam kết chỉ bán hàng đã qua kiểm chứng thực tế.
+          - QUY TẮC TRẢ LỜI:
+            1. KHÔNG sử dụng định dạng Markdown (như dấu >, #, *, -, code blocks). Trả lời bằng văn bản thuần túy.
+            2. KHÔNG tạo blockquote hay danh sách có dấu gạch ngang.
+            3. Nếu khách hỏi email, hãy đưa đúng: tienthamtechnical@gmail.com.
+            4. Nếu khách hỏi sđt, đưa đúng: 0978.634.092.
+            5. Trả lời lịch sự, ân cần, giải thích đầy đủ cho khách hàng.
+            6. Cấu trúc câu trả lời luôn gồm 3 phần: Chào hỏi khách hàng kèm tên công ty Pallet Gỗ Hòa Phát, nội dung trả lời chính, và lời chào tạm biệt/hẹn gặp lại.
+            7. Luôn gọi khách hàng là "anh/chị" và xưng "Em" hoặc "Pallet Hòa Phát" để tạo sự gần gũi nhưng vẫn chuyên nghiệp.
+            9. Nếu khách hỏi về thông tin liên hệ, hãy chủ động cung cấp thêm số Hotline để khách có thể gọi trực tiếp nếu cần gấp.
+            10. Ngắt dòng: Viết liền mạch trong một đoạn. Tuyệt đối KHÔNG tự ý xuống dòng khi chưa hết câu. Chỉ xuống dòng (Enter) khi chuyển sang một ý hoàn toàn mới hoặc khi gửi 1 đường link dài.
+
+        `;
+
+        try {
+          const response = await fetchWithRetry(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                systemInstruction: { parts: [{ text: systemInstruction }] },
+                contents: [
+                  {
+                    parts: [
+                      {
+                        text: `Bạn là trợ lý ảo của công ty Pallet Gỗ Hòa Phát. Hãy trả lời lịch sự và tận tâm: ${text}`,
+                      },
+                    ],
+                  },
+                ],
+              }),
+            },
+          );
+          const result = await response.json();
+          const botText =
+            result.candidates?.[0]?.content?.parts?.[0]?.text ||
+            "Xin lỗi, tôi chưa thể trả lời lúc này.";
+          typingDiv.remove();
+          addMessageUI(botText, "bot");
+        } catch (error) {
+          typingDiv.remove();
+          addMessageUI("Lỗi kết nối AI.", "bot");
+        }
+      }
+
+      function addMessageUI(text, sender) {
+        const div = document.createElement("div");
+        div.className = `ai-message ${sender}`;
+        div.innerText = text;
+        aiChatMessages.appendChild(div);
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+      }
+
+      async function fetchWithRetry(url, options, retries = 5, backoff = 1000) {
+        try {
+          const response = await fetch(url, options);
+          if (!response.ok && retries > 0) throw new Error(response.status);
+          return response;
+        } catch (error) {
+          if (retries === 0) throw error;
+          await new Promise((r) => setTimeout(r, backoff));
+          return fetchWithRetry(url, options, retries - 1, backoff * 2);
+        }
+      }
+
+      // Original Scripts
+      function changeImage(productId, element) {
+        const mainImg = document.getElementById(`main-img-${productId}`);
+        mainImg.src = element.src;
+        const wrapper = element.closest(".grid");
+        const thumbnails = wrapper.querySelectorAll("img");
+        thumbnails.forEach((img) => img.classList.remove("active"));
+        element.classList.add("active");
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Tự động mở Chatbot sau 1.5 giây
+        setTimeout(() => {
+          const chatWindow = document.getElementById("ai-chat-window");
+          if (chatWindow && !chatWindow.classList.contains("active")) {
+            chatWindow.classList.add("active");
+          }
+        }, 1500);
+
+        const zoomContainers = document.querySelectorAll(".zoom-container");
+        zoomContainers.forEach((container) => {
+          const img = container.querySelector(".zoom-img");
+          container.addEventListener("mousemove", function (e) {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const xPercent = (x / rect.width) * 100;
+            const yPercent = (y / rect.height) * 100;
+            img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+            const scale = container.getAttribute("data-scale") || 2.5;
+            img.style.transform = `scale(${scale})`;
+          });
+          container.addEventListener("mouseleave", function () {
+            img.style.transformOrigin = "center center";
+            img.style.transform = "scale(1)";
+          });
+        });
+
+        const btn = document.getElementById("mobile-menu-btn");
+        const menu = document.getElementById("mobile-menu");
+        if (btn && menu) {
+          btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+        }
+      });
+
+      let currentSlide = 0;
+      const items = document.querySelectorAll(".carousel-item");
+      const indicators = document.querySelectorAll(".indicator");
+      function showSlide(index) {
+        items.forEach((i) => i.classList.remove("active"));
+        indicators.forEach((ind) => {
+          ind.classList.remove("active", "bg-white");
+          ind.classList.add("bg-white/50");
+        });
+        items[index].classList.add("active");
+        indicators[index].classList.remove("bg-white/50");
+        indicators[index].classList.add("active", "bg-white");
+        currentSlide = index;
+      }
+      function nextSlide() {
+        showSlide((currentSlide + 1) % items.length);
+      }
+      function prevSlide() {
+        showSlide((currentSlide - 1 + items.length) % items.length);
+      }
+      function goToSlide(index) {
+        showSlide(index);
+      }
+
+      let slideInterval = setInterval(nextSlide, 5000);
+      const carouselSection = document.querySelector("section.relative");
+      if (carouselSection) {
+        carouselSection.addEventListener("mouseenter", () =>
+          clearInterval(slideInterval),
+        );
+        carouselSection.addEventListener(
+          "mouseleave",
+          () => (slideInterval = setInterval(nextSlide, 5000)),
+        );
+      }
+    </script>
+  </body>
+</html>
